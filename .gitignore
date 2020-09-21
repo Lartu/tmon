@@ -5,3 +5,4 @@ log.tmon
 youtube-dl
 *.swp
 .temp_list
+config.tmon

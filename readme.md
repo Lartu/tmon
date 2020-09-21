@@ -19,7 +19,7 @@ To do this, run `crontab -e` to open your crontab on an editor and then
 add the line `0 */2 * * * /path/to/tmon.py` to it. This will run `tmon` every
 2 hours. If you want to change the execution frequency, modify the cron line.
 
-To select the playlist to backup, modify the file `config.tmon`. The only contents
+To select the playlist to backup, create the file `config.tmon`. The only contents
 of that file should be the playlist id of the playlist you want to back up (the
 id that follows the `&list=` on the YouTube URL).
 

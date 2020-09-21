@@ -47,7 +47,10 @@ def loadConfigURL():
 def loadVideoURLs():
     try:
         with open(TEMP_FILE, "r+") as f:
-            urls = f.readlines()
+            lines = f.readlines()
+            urls = []
+            for line in lines:
+                urls.append(line.strip())
     except BaseException as e:
         log(f"Error found while trying to read {TEMP_FILE}:\n{e}")
         open(TEMP_FILE, "w+")
@@ -170,6 +173,7 @@ to_download = loadVideoURLs()
 log(f"Obtained {len(to_download)} URLs from the playlist.")
 log(f"Loading historic URLs from {HISTORY_FILE}...")
 history = loadHistoryURLs()
+print(history)
 log(f"Obtained {len(history)} URLs from the history.")
 
 log(f"Purging downloaded URLs from the download list...")

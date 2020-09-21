@@ -173,7 +173,6 @@ to_download = loadVideoURLs()
 log(f"Obtained {len(to_download)} URLs from the playlist.")
 log(f"Loading historic URLs from {HISTORY_FILE}...")
 history = loadHistoryURLs()
-print(history)
 log(f"Obtained {len(history)} URLs from the history.")
 
 log(f"Purging downloaded URLs from the download list...")

@@ -92,7 +92,7 @@ def printInBox(message):
 
 
 def replaceNonChars(filename):
-    invalid_chars = ["/<>:\"\\|?*"]
+    invalid_chars = "/<>:\"\\|?*"
     for char in invalid_chars:
         filename = filename.replace(char, "_")
     return filename

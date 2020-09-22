@@ -1,4 +1,4 @@
-# tmon
+![tmon](logo.png)
 
 **tmon**, the *[You]Tube Monitor*, is a tool to make regular, local backups of
 your YouTube music playlists.

@@ -159,62 +159,66 @@ def getYoutubeDl():
         
 
 # --- Procedure ---
-log("")
-printInBox(f"Running tmon {VERSION}, by Lartu (www.lartu.net)")
-log("")
-getYoutubeDl()
-log(f"Obtaining playlist id from {CONFIG_FILE}...")
-playlistId = loadConfigURL()
-log(f"Obtained playlist id: '{playlistId}'")
-log(f"Obtaining URLs in the playlist...")
-getYoutubePlaylist(playlistId)
-log(f"Loading URLs from {TEMP_FILE}...")
-to_download = loadVideoURLs()
-log(f"Obtained {len(to_download)} URLs from the playlist.")
-log(f"Loading historic URLs from {HISTORY_FILE}...")
-history = loadHistoryURLs()
-log(f"Obtained {len(history)} URLs from the history.")
-
-log(f"Purging downloaded URLs from the download list...")
-urls = []
-for url in to_download:
-    if url not in history:
-        urls.append(url)
-log(f"{len(urls)} left to be downloaded.")
-
-log(f"Proceeding to download the videos...")
-
-counter = 0
-for url in urls:
-    counter += 1
-    counter_message = f"{counter}/{len(urls)}"
-    url = url.strip()
+try:
     log("")
-    try:
-        title = getVideoTitle(url)
-    except:
-        printInBox("(" + counter_message + ") UNAVAILABLE ERROR")
-        log(f"The title for {url} couldn't be obtained. The video is probably unavailable")
-        writeFailed(url)
-        writeFailed(f"# Title Unknown, probably unavailable.")
-        writeFailed("")
-        writeHistory(url)
-        writeHistory(f"# Title Unknown, probably unavailable.")
-        writeHistory("")
-        # Add it to history so it doesn't try to download it again
-        continue
-    if len(title) > 60:
-        title = title[0:60] + "..."
-    url_key = url.split(".be/")[1].strip()
-    printInBox("(" + counter_message + ") " + title)
-    log(f"(url: {url})")
-    log(f"(key: {url_key})")
-    filename = title.replace(" ", "_") + "_(" + url_key + ")"
-    filename = replaceNonChars(filename)
-    log(f"(filename: {filename}.mp3)")
-    log("Downloading, please wait...")
-    downloadMp3(url, filename, title)
+    printInBox(f"Running tmon {VERSION}, by Lartu (www.lartu.net)")
+    log("")
+    getYoutubeDl()
+    log(f"Obtaining playlist id from {CONFIG_FILE}...")
+    playlistId = loadConfigURL()
+    log(f"Obtained playlist id: '{playlistId}'")
+    log(f"Obtaining URLs in the playlist...")
+    getYoutubePlaylist(playlistId)
+    log(f"Loading URLs from {TEMP_FILE}...")
+    to_download = loadVideoURLs()
+    log(f"Obtained {len(to_download)} URLs from the playlist.")
+    log(f"Loading historic URLs from {HISTORY_FILE}...")
+    history = loadHistoryURLs()
+    log(f"Obtained {len(history)} URLs from the history.")
 
+    log(f"Purging downloaded URLs from the download list...")
+    urls = []
+    for url in to_download:
+        if url not in history:
+            urls.append(url)
+    log(f"{len(urls)} left to be downloaded.")
+
+    log(f"Proceeding to download the videos...")
+
+    counter = 0
+    for url in urls:
+        counter += 1
+        counter_message = f"{counter}/{len(urls)}"
+        url = url.strip()
+        log("")
+        try:
+            title = getVideoTitle(url)
+        except:
+            printInBox("(" + counter_message + ") UNAVAILABLE ERROR")
+            log(f"The title for {url} couldn't be obtained. The video is probably unavailable")
+            writeFailed(url)
+            writeFailed(f"# Title Unknown, probably unavailable.")
+            writeFailed("")
+            writeHistory(url)
+            writeHistory(f"# Title Unknown, probably unavailable.")
+            writeHistory("")
+            # Add it to history so it doesn't try to download it again
+            continue
+        if len(title) > 60:
+            title = title[0:60] + "..."
+        url_key = url.split(".be/")[1].strip()
+        printInBox("(" + counter_message + ") " + title)
+        log(f"(url: {url})")
+        log(f"(key: {url_key})")
+        filename = title.replace(" ", "_") + "_(" + url_key + ")"
+        filename = replaceNonChars(filename)
+        log(f"(filename: {filename}.mp3)")
+        log("Downloading, please wait...")
+        downloadMp3(url, filename, title)
+        
+except KeyboardInterrupt:
+    log("Aborted by user.")
+    sys.exit()
 
 
 

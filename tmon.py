@@ -193,10 +193,15 @@ for url in urls:
     try:
         title = getVideoTitle(url)
     except:
+        printInBox("(" + counter_message + ") UNAVAILABLE ERROR")
         log(f"The title for {url} couldn't be obtained. The video is probably unavailable")
         writeFailed(url)
         writeFailed(f"# Title Unknown, probably unavailable.")
         writeFailed("")
+        writeHistory(url)
+        writeHistory(f"# Title Unknown, probably unavailable.")
+        writeHistory("")
+        # Add it to history so it doesn't try to download it again
         continue
     if len(title) > 60:
         title = title[0:60] + "..."

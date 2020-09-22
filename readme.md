@@ -55,6 +55,19 @@ You can safely delete it, tmon will recreate it whenever it needs it.
 Easy, just delete its url from `history.tmon`. Its url is listed in that file
 along with the name of the file and the name of the video the file was generated from. 
 
+### Why don't you just use youtube-dl?
+
+Even though youtube-dl doesn't download again what it has already downloaded if it finds
+a file with the same name in the destination directory, it has to go over the entire
+playlist trying to download each file to get the new files. And if you move the files out
+of the destination directory (for example, to your Music directory or to another computer),
+it will still download them again, wasting bandwidth, time and space. tmon keeps note of
+what it has already downloaded and it just downloads songs that haven't been downloaded in
+the past, without attempting to re-download those that you already have. It also writes
+down useful logs with information that youtube-dl doesn't provide in a human readable form,
+such as what videos failed to download, which ones were downloaded, which URL they were
+downloaded from, etc.
+
 ### tmon sounds like "temón" in Spanish
 
 Yes, it's a pun.

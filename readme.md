@@ -1,7 +1,8 @@
 ![tmon](logo.png)
 
 **tmon**, the *[You]Tube Monitor*, is a tool to make regular, local backups of
-your YouTube music playlists.
+your YouTube music playlists. It's pronounced *te-mon*, with *te* like in *tetris*
+and *mon* like in *monitor*.
 
 ## Why?
 

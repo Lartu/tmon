@@ -55,6 +55,10 @@ You can safely delete it, tmon will recreate it whenever it needs it.
 Easy, just delete its url from `history.tmon`. Its url is listed in that file
 along with the name of the file and the name of the video the file was generated from. 
 
+### tmon sounds like "temón" in Spanish
+
+Yes, it's a pun.
+
 ### I have more questions about tmon!
 
 If you have questions please do send me an email to [lartu+tmon@lartu.net](mailto:lartu+tmon@lartu.net).

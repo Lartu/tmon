@@ -190,7 +190,14 @@ for url in urls:
     counter_message = f"{counter}/{len(urls)}"
     url = url.strip()
     log("")
-    title = getVideoTitle(url)
+    try:
+        title = getVideoTitle(url)
+    except:
+        log(f"The title for {url} couldn't be obtained. The video is probably unavailable")
+        writeFailed(url)
+        writeFailed(f"# Title Unknown, probably unavailable.")
+        writeFailed("")
+        continue
     if len(title) > 60:
         title = title[0:60] + "..."
     url_key = url.split(".be/")[1].strip()

@@ -93,7 +93,7 @@ def printInBox(message):
 
 
 def replaceNonChars(filename):
-    invalid_chars = "/<>:\"\\|?*"
+    invalid_chars = "/<>:\"\\|?*%"
     for char in invalid_chars:
         filename = filename.replace(char, "_")
     return filename
@@ -198,9 +198,8 @@ try:
             except CalledProcessError:
                 printInBox("(" + counter_message + ") UNAVAILABLE ERROR")
                 log(f"The title for {url} couldn't be obtained. The video is probably unavailable")
-                if retry < RETRYCOUNT - 1:
-                    log(f"Retrying {retry + 1} / {RETRYCOUNT}...")
-                else:
+                log(f"Retrying {retry + 1} / {RETRYCOUNT}...")
+                if retry >= RETRYCOUNT - 1:
                     # Add it to history so it doesn't try to download it again
                     writeFailed(url)
                     writeFailed(f"# Title Unknown, probably unavailable.")

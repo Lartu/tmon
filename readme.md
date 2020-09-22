@@ -32,6 +32,9 @@ I recommend that, if you want to download a big playlist and then keep watch ove
 you first run tmon by hand, download the list and then cron it to download the newly
 added videos.
 
+If you are in Linux and you have `notify-send` installed, tmon will show a notification
+every time a new file is downloaded.
+
 ## FAQ
 
 ### What does tmon require to work?

@@ -8,7 +8,7 @@
 # --- Imports ---
 import sys
 import os
-from subprocess import check_output
+from subprocess import check_output, CalledProcessError
 from datetime import datetime
 
 # --- Constants ---
@@ -21,6 +21,7 @@ HISTORY_FILE = PATH + "/history.tmon"
 LOG_FILE = PATH + "/log.tmon"
 ERROR_LOG = PATH + "/failed.tmon"
 YOUTUBEDL = PATH + "/youtube-dl"
+RETRYCOUNT = 5
 
 # --- Functions ---
 def getYoutubePlaylist(playlistId):
@@ -190,31 +191,36 @@ try:
         counter += 1
         counter_message = f"{counter}/{len(urls)}"
         url = url.strip()
-        log("")
-        try:
-            title = getVideoTitle(url)
-        except:
-            printInBox("(" + counter_message + ") UNAVAILABLE ERROR")
-            log(f"The title for {url} couldn't be obtained. The video is probably unavailable")
-            writeFailed(url)
-            writeFailed(f"# Title Unknown, probably unavailable.")
-            writeFailed("")
-            writeHistory(url)
-            writeHistory(f"# Title Unknown, probably unavailable.")
-            writeHistory("")
-            # Add it to history so it doesn't try to download it again
-            continue
-        if len(title) > 60:
-            title = title[0:60] + "..."
-        url_key = url.split(".be/")[1].strip()
-        printInBox("(" + counter_message + ") " + title)
-        log(f"(url: {url})")
-        log(f"(key: {url_key})")
-        filename = title.replace(" ", "_") + "_(" + url_key + ")"
-        filename = replaceNonChars(filename)
-        log(f"(filename: {filename}.mp3)")
-        log("Downloading, please wait...")
-        downloadMp3(url, filename, title)
+        for retry in range(0, RETRYCOUNT):
+            log("")
+            try:
+                title = getVideoTitle(url)
+            except CalledProcessError:
+                printInBox("(" + counter_message + ") UNAVAILABLE ERROR")
+                log(f"The title for {url} couldn't be obtained. The video is probably unavailable")
+                if retry < RETRYCOUNT - 1:
+                    log(f"Retrying {retry + 1} / {RETRYCOUNT}...")
+                else:
+                    # Add it to history so it doesn't try to download it again
+                    writeFailed(url)
+                    writeFailed(f"# Title Unknown, probably unavailable.")
+                    writeFailed("")
+                    writeHistory(url)
+                    writeHistory(f"# Title Unknown, probably unavailable.")
+                    writeHistory("")
+                continue
+            if len(title) > 60:
+                title = title[0:60] + "..."
+            url_key = url.split(".be/")[1].strip()
+            printInBox("(" + counter_message + ") " + title)
+            log(f"(url: {url})")
+            log(f"(key: {url_key})")
+            filename = title.replace(" ", "_") + "_(" + url_key + ")"
+            filename = replaceNonChars(filename)
+            log(f"(filename: {filename}.mp3)")
+            log("Downloading, please wait...")
+            downloadMp3(url, filename, title)
+            break
         
 except KeyboardInterrupt:
     log("Aborted by user.")

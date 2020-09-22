@@ -93,7 +93,7 @@ def printInBox(message):
 
 
 def replaceNonChars(filename):
-    invalid_chars = "/<>:\"\\|?*%"
+    invalid_chars = "/<>:\"\\|?*%\t"
     for char in invalid_chars:
         filename = filename.replace(char, "_")
     return filename
@@ -117,6 +117,7 @@ def downloadMp3(url, filename, title):
         writeHistory(f"# {filename}")
         writeHistory(f"# {title}")
         writeHistory("")
+        os.system(f"notify-send -i audio-x-generic \"tmon has downloaded {title}\"")
         log("Downloaded.")
         
 

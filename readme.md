@@ -16,8 +16,8 @@ downloaded and what hasn't, that's why I made tmon.
 Clone this repository, move it to somewhere permanent and make `tmon.py`
 executable by running `chmod +x tmon.py`. Then hook it to your crontab file.
 To do this, run `crontab -e` to open your crontab on an editor and then
-add the line `0 */2 * * * /path/to/tmon.py` to it. This will run `tmon` every
-2 hours. If you want to change the execution frequency, modify the cron line.
+add the line `0 * * * * /path/to/tmon.py` to it. This will run `tmon` once per
+hour. If you want to change the execution frequency, modify the cron line.
 
 To select the playlist to backup, create the file `config.tmon`. The only contents
 of that file should be the playlist id of the playlist you want to back up (the
@@ -26,6 +26,10 @@ id that follows the `&list=` on the YouTube URL).
 If you want to execute tmon only once, run `./tmon.py`. If you don't want to
 cron it, you can run it this way whenever you want to back-up your playlist
 (do it often!).
+
+I recommend that, if you want to download a big playlist and then keep watch over it,
+you first run tmon by hand, download the list and then cron it to download the newly
+added videos.
 
 ## FAQ
 

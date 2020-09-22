@@ -12,7 +12,7 @@ from subprocess import check_output, CalledProcessError
 from datetime import datetime
 
 # --- Constants ---
-VERSION = "1.0.21"
+VERSION = "1.0.22"
 PATH = os.path.dirname(os.path.realpath(__file__))
 CONFIG_FILE = PATH + "/config.tmon"
 TEMP_FILE = PATH + "/.temp_list"
